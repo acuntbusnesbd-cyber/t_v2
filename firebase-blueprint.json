@@ -1,0 +1,111 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "ব্যবহারকারীর ব্যক্তিগত টাস্ক বা কাজের তথ্য",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "টাস্কের শিরোনাম (Title)",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "description": "টাস্কের বিস্তারিত বিবরণ (Description)",
+          "maxLength": 2000
+        },
+        "priority": {
+          "type": "string",
+          "description": "গুরুত্ব: উচ্চ/মাঝারি/কম (Priority: high/medium/low)",
+          "enum": ["low", "medium", "high"]
+        },
+        "status": {
+          "type": "string",
+          "description": "অবস্থা: অসম্পূর্ণ/চলমান/সম্পন্ন (Status: pending/in_progress/completed)",
+          "enum": ["pending", "in_progress", "completed"]
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "শেষ সময় বা ডেডলাইন (ISO 8601 string)",
+          "maxLength": 100
+        },
+        "userId": {
+          "type": "string",
+          "description": "টাস্কের মালিকের ফায়ারবেস অথ ইউজার আইডি",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "টাস্ক তৈরির সময়কাল (Server Timestamp)"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "টাস্ক সর্বশেষ হালনাগাদের সময়কাল (Server Timestamp)"
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "description": "টাস্ক সম্পন্ন হয়েছে কিনা"
+        }
+      },
+      "required": ["title", "priority", "status", "userId", "createdAt", "updatedAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "ব্যবহারকারীর প্রোফাইল ও সেটিংস",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "ইউজার আইডি",
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "maxLength": 128
+        },
+        "displayName": {
+          "type": "string",
+          "description": "প্রদর্শনযোগ্য নাম",
+          "maxLength": 150
+        },
+        "email": {
+          "type": "string",
+          "description": "ইমেইল ঠিকানা",
+          "maxLength": 150
+        },
+        "theme": {
+          "type": "string",
+          "description": "থিম পছন্দ (light বা dark)",
+          "enum": ["light", "dark"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "অ্যাকাউন্ট তৈরির সময়"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "প্রোফাইল আপডেট সময়"
+        }
+      },
+      "required": ["userId", "email", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/tasks/{taskId}": {
+      "schema": {
+        "$ref": "#/entities/Task"
+      },
+      "description": "সকল ব্যক্তিগত টাস্কের কালেকশন। প্রতিটি টাস্কের সাথে userId সংরক্ষিত এবং শুধু সংশ্লিষ্ট মালিক অ্যাক্সেস করতে পারেন।"
+    },
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "ব্যবহারকারীর ব্যক্তিগত প্রোফাইল তথ্য। শুধু সংশ্লিষ্ট ইউজার পড়তে ও লিখতে পারবেন।"
+    }
+  }
+}
