@@ -39,13 +39,14 @@ service cloud.firestore {
         && data.updatedAt is timestamp;
     }
 
-    // User Profile Validation Blueprint
+    // User Profile Validation Blueprint (Supports Email, Google, and Phone Auth)
     function isValidUserProfile(data) {
-      return data.keys().hasAll(['userId', 'email', 'createdAt', 'updatedAt'])
-        && data.keys().hasOnly(['userId', 'displayName', 'email', 'theme', 'createdAt', 'updatedAt'])
+      return data.keys().hasAll(['userId', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['userId', 'displayName', 'email', 'phoneNumber', 'theme', 'createdAt', 'updatedAt'])
         && data.userId is string && data.userId.size() <= 128 && data.userId.matches('^[a-zA-Z0-9_\\-]+$')
         && (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 150))
-        && data.email is string && data.email.size() <= 150
+        && (!('email' in data) || (data.email is string && data.email.size() <= 150))
+        && (!('phoneNumber' in data) || (data.phoneNumber is string && data.phoneNumber.size() <= 50))
         && (!('theme' in data) || data.theme in ['light', 'dark'])
         && data.createdAt is timestamp
         && data.updatedAt is timestamp;
@@ -103,7 +104,7 @@ service cloud.firestore {
         && incoming().userId == existing().userId
         && incoming().createdAt == existing().createdAt
         && incoming().updatedAt == request.time
-        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'theme', 'updatedAt']);
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'email', 'phoneNumber', 'theme', 'updatedAt']);
 
       allow delete: if false;
     }

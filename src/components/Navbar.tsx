@@ -158,7 +158,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {user.displayName || 'ব্যবহারকারী'}
                   </div>
                   <div className="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[120px]">
-                    {user.email}
+                    {user.email || user.phoneNumber || 'সক্রিয় অ্যাকাউন্ট'}
                   </div>
                 </div>
               </div>

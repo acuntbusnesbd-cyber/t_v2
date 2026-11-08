@@ -229,7 +229,10 @@ export async function deleteTask(taskId) {
                 </h4>
                 <ol className="list-decimal pl-5 space-y-2">
                   <li>
-                    <strong className="text-slate-900 dark:text-white">অ্যাকাউন্ট তৈরি বা লগইন:</strong> ইমেইল/পাসওয়ার্ড বা Google সাইন-ইন দিয়ে সরাসরি লগইন করুন। অননুমোদিত কেউ ড্যাশবোর্ড বা ডেটা দেখতে পারবে না।
+                    <strong className="text-slate-900 dark:text-white">মোবাইল নম্বর বা ইমেইল দিয়ে লগইন:</strong> মোবাইল নম্বর (ওটিপি ভেরিফিকেশন সহ), ইমেইল/পাসওয়ার্ড অথবা Google সাইন-ইন দিয়ে সরাসরি লগইন করতে পারবেন। অননুমোদিত কেউ ড্যাশবোর্ড বা ডেটা দেখতে পারবে না।
+                  </li>
+                  <li>
+                    <strong className="text-slate-900 dark:text-white">মোবাইল অথেনটিকেশন সক্রিয়করণ:</strong> ফায়ারবেস কনসোলে <em>Authentication &gt; Sign-in method &gt; Phone</em> সক্রিয় করুন। ফ্রি টেস্টিংয়ের জন্য <em>Phone numbers for testing</em> এ টেস্ট নম্বর ও কোড (যেমন +8801700000000 ও 123456) যোগ করতে পারবেন।
                   </li>
                   <li>
                     <strong className="text-slate-900 dark:text-white">নতুন কাজ যোগ (Add Task):</strong> "নতুন কাজ যোগ করুন" বাটনে ক্লিক করে কাজের শিরোনাম, বিস্তারিত বিবরণ, গুরুত্বের স্তর (উচ্চ/মাঝারি/কম) এবং ডেডলাইন নির্ধারণ করুন।

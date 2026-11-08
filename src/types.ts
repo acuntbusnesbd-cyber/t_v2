@@ -17,7 +17,8 @@ export interface Task {
 export interface UserProfile {
   userId: string;
   displayName?: string;
-  email: string;
+  email?: string;
+  phoneNumber?: string;
   theme?: 'light' | 'dark';
   createdAt: any;
   updatedAt: any;

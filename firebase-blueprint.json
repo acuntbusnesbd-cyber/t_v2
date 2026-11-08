@@ -75,6 +75,11 @@
           "description": "ইমেইল ঠিকানা",
           "maxLength": 150
         },
+        "phoneNumber": {
+          "type": "string",
+          "description": "মোবাইল ফোন নম্বর",
+          "maxLength": 50
+        },
         "theme": {
           "type": "string",
           "description": "থিম পছন্দ (light বা dark)",
@@ -91,7 +96,7 @@
           "description": "প্রোফাইল আপডেট সময়"
         }
       },
-      "required": ["userId", "email", "createdAt", "updatedAt"]
+      "required": ["userId", "createdAt", "updatedAt"]
     }
   },
   "firestore": {

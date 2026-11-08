@@ -1,6 +1,6 @@
 /**
  * firebase-config.js
- * সম্পূর্ণ ফায়ারবেস ইনিশিয়ালাইজেশন এবং কনফিগারেশন স্ক্রিপ্ট
+ * সম্পূর্ণ ফায়ারবেস ইনিশিয়ালাইজেশন এবং কনফিগারেশন স্ক্রিপ্ট (মোবাইল নম্বর ওটিপি সহ)
  */
 
 import { initializeApp } from 'firebase/app';
@@ -12,6 +12,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -54,6 +56,22 @@ export async function loginUser(email, password) {
 
 export async function loginWithGoogle() {
   return await signInWithPopup(auth, googleProvider);
+}
+
+// মোবাইল নম্বর ও ওটিপি (Phone Auth Handlers)
+export function initRecaptcha(containerId = 'recaptcha-container') {
+  return new RecaptchaVerifier(auth, containerId, {
+    size: 'invisible',
+  });
+}
+
+export async function sendOtp(phoneNumber, appVerifier) {
+  return await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+}
+
+export async function verifyOtp(confirmationResult, otpCode) {
+  const cred = await confirmationResult.confirm(otpCode);
+  return cred.user;
 }
 
 export async function logout() {
